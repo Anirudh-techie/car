@@ -577,7 +577,7 @@
       }
     }
     function finish() {
-      ws.send({ name: playerName, finish: true });
+      ws.send(JSON.stringify({ name: playerName, finish: true }));
       alert('you won!!')
     }
   </script>
