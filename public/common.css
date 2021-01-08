@@ -33,7 +33,11 @@ body {
 #mute.on {
   background-position: -32px 0px;
 }
-
+#chat {
+  float: right;
+  height: 100%;
+  border: 1px #888 solid;
+}
 /**************************************************/
 /* rudimentary heads up display (only used in v4) */
 /**************************************************/

@@ -20,7 +20,7 @@
     <canvas id="canvas">
       Sorry, this example cannot be run because your browser does not support the &lt;canvas&gt; element
     </canvas>
-    Loading...
+
   </div>
 
   <audio id='music'>
@@ -28,7 +28,10 @@
     <source src="music/racer.mp3">
   </audio>
   <span id="mute"></span>
-
+  <div id="chat">
+    <div id="chatmsgs"></div>
+    <input type="text" id="chatinput">
+  </div>
   <script src="common.js"></script>
   <script>
 
@@ -534,8 +537,11 @@
             }
           });
           alert('you are playing with ' + playerName)
+        } else if (data.pos) {
+          updatePos((data.pos))
         } else {
-          updatePos((JSON.parse(e.data).pos))
+          var msg = data.msg;
+          addMsg(playerName + ': ' + msg)
         }
       }
     }).then(() => {
@@ -546,6 +552,9 @@
     })
     function updatePos(pos) {
       playerPos = pos || playerPos;
+    }
+    function addMsg(msg) {
+      Dom.get('chatmsgs').innerHTML += `<h6>${msg}</h6>`
     }
     function reset(options) {
       options = options || {};
@@ -565,6 +574,15 @@
 
       if ((segments.length == 0) || (options.segmentLength) || (options.rumbleLength))
         resetRoad(); // only rebuild road when necessary
+    }
+    function sendMsg(msg) {
+      ws.send({ name: playerName, msg });
+      addMsg('you: ' + msg)
+    }
+    document.getElementById('chatinput').onkeydown = function (e) {
+      if (e.keyCode == 13) {
+        sendMsg(e.target.value)
+      }
     }
   </script>
 
