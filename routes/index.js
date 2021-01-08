@@ -13,11 +13,14 @@ router.get("/start", function (req, res, next) {
   } else {
     updates.on("play", (user, player) => {
       users.splice(0, 1);
+      console.log(users);
+
       if (user == name) {
         res.json({ player });
       }
     });
   }
+  console.log(users);
 });
 
 module.exports = router;
