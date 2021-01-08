@@ -507,7 +507,7 @@
     var name = prompt('your name:');
     fetch('/start?name=' + name).then(r => r.json()).then((player) => {
       playerName = player.player;
-      ws = new WebSocket('ws://' + location.host + '/connect?name=' + name);
+      ws = new WebSocket('wss://' + location.host + '/connect?name=' + name);
       ws.onmessage = function (e) {
         console.log(e);
         var data = JSON.parse(e.data)
