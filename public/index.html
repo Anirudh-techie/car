@@ -581,7 +581,8 @@
     }
     document.getElementById('chatinput').onkeydown = function (e) {
       if (e.keyCode == 13) {
-        sendMsg(e.target.value)
+        sendMsg(e.target.value);
+        e.target.value = ''
       }
     }
   </script>
