@@ -4,6 +4,7 @@ var router = express.Router();
 var users = [];
 var updates = new EventEmitter();
 router.get("/start", function (req, res, next) {
+  res.set({ Connection: "keep-alive" });
   var name = req.query.name;
   var length = users.push({ name }) - 1;
   if (length != 0) {
@@ -13,14 +14,11 @@ router.get("/start", function (req, res, next) {
   } else {
     updates.on("play", (user, player) => {
       users.splice(0, 1);
-      console.log(users);
-
       if (user == name) {
         res.json({ player });
       }
     });
   }
-  console.log(users);
 });
 
 module.exports = router;
