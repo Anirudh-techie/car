@@ -576,7 +576,7 @@
         resetRoad(); // only rebuild road when necessary
     }
     function sendMsg(msg) {
-      ws.send({ name: playerName, msg });
+      ws.send(JSON.stringify({ name: playerName, msg }));
       addMsg('you: ' + msg)
     }
     document.getElementById('chatinput').onkeydown = function (e) {
