@@ -34,9 +34,16 @@ body {
   background-position: -32px 0px;
 }
 #chat {
-  float: right;
   height: 100%;
   border: 1px #888 solid;
+  width: 18%;
+  position: absolute;
+  right: 0;
+  top: 0;
+}
+#chatinput {
+  position: absolute;
+  bottom: 0;
 }
 /**************************************************/
 /* rudimentary heads up display (only used in v4) */
