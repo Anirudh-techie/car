@@ -161,18 +161,7 @@
         if (currentLapTime && (startPosition < playerZ)) {
           lastLapTime = currentLapTime;
           currentLapTime = 0;
-          if (lastLapTime <= Util.toFloat(Dom.storage.fast_lap_time)) {
-            Dom.storage.fast_lap_time = lastLapTime;
-            updateHud('fast_lap_time', formatTime(lastLapTime));
-            Dom.addClassName('fast_lap_time', 'fastest');
-            Dom.addClassName('last_lap_time', 'fastest');
-          }
-          else {
-            Dom.removeClassName('fast_lap_time', 'fastest');
-            Dom.removeClassName('last_lap_time', 'fastest');
-          }
-          updateHud('last_lap_time', formatTime(lastLapTime));
-          Dom.show('last_lap_time');
+          finish();
         }
         else {
           currentLapTime += dt;
@@ -539,9 +528,11 @@
           alert('you are playing with ' + playerName)
         } else if (data.pos) {
           updatePos((data.pos))
-        } else {
+        } else if (data.msg) {
           var msg = data.msg;
           addMsg(playerName + ': ' + msg)
+        } else if (data.finish) {
+          alert(playerName + ' won')
         }
       }
     }).then(() => {
@@ -584,6 +575,10 @@
         sendMsg(e.target.value);
         e.target.value = ''
       }
+    }
+    function finish() {
+      ws.send({ name: playerName, finish: true });
+      alert('you won!!')
     }
   </script>
 
